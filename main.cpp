@@ -15,16 +15,15 @@ typedef struct tempo {
 void printTime(tempo_t *running) {
     if(running->minutes < 10) {cout << "0" << running->minutes << ":";}
     else {cout << running->minutes << ":";}
-    if(running->seconds < 10) {cout << "0" << running->seconds << ":";}
-    else {cout << running->seconds << ":";}
-    if(running->milliseconds < 10) {cout << "0" << running->milliseconds << endl;}
-    else {cout << running->milliseconds << endl;}
+    if(running->seconds < 10) {cout << "0" << running->seconds << ".";}
+    else {cout << running->seconds << ".";}
+    cout << running->milliseconds << endl;
 }
 
 void checkMilliseconds(tempo_t *running) {
-    while(running->milliseconds > 59) {
+    while(running->milliseconds > 9) {
         running->seconds++;
-        running->milliseconds -= 60;
+        running->milliseconds -= 10;
     }
 }
 
@@ -54,7 +53,7 @@ void checkPause() {
 }
 
 void run(tempo_t *running) {
-    this_thread::sleep_for(chrono::milliseconds(1));
+    this_thread::sleep_for(chrono::milliseconds(100));
     increaseTime(running);
     printTime(running);
 }
